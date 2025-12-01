@@ -9,6 +9,10 @@ class UserRepository {
   async list() {
     return await knex("users");
   }
+
+  async findByEmail(email) {
+    return await knex("users").where({ email }).first();
+  }
 }
 
 module.exports = UserRepository;

@@ -1,0 +1,272 @@
+{
+  "info": {
+    "_postman_id": "2d3fb144-5e7d-4b44-ae1f-9db246fbe6b6",
+    "name": "Orders API",
+    "description": "Collection for testing the Orders API with Authentication",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "50450849",
+    "_collection_link": "https://dedez1nn-2618506.postman.co/workspace/d7d9cc02-274b-4378-8219-f6193485a37f/collection/50450849-2d3fb144-5e7d-4b44-ae1f-9db246fbe6b6?action=share&source=collection_link&creator=50450849"
+  },
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Registrar Usuario",
+          "id": "b4491717-8c2b-41d6-8b92-03922728b513",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Test User\",\n  \"email\": \"test@example.com\",\n  \"password\": \"123456\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:3000/users",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "users"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Login",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "var jsonData = pm.response.json();",
+                  "pm.environment.set(\"token\", jsonData.token);"
+                ],
+                "type": "text/javascript",
+                "id": "2384b6c6-991b-4ce2-9736-c617974d9175"
+              }
+            }
+          ],
+          "id": "01b14fc3-8fe7-41cc-a62a-3082f8b94f1b",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"test@example.com\",\n  \"password\": \"123456\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:3000/users/login",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "users",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        }
+      ],
+      "id": "f36d8215-a063-40cf-ada0-47b10fe0f4f1"
+    },
+    {
+      "name": "Orders",
+      "item": [
+        {
+          "name": "Criar Pedido",
+          "id": "cb322010-bd79-46f3-bccf-55c77b36147d",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"numeroPedido\": \"v10089015vdb-01\",\n  \"valorTotal\": 10000,\n  \"dataCriacao\": \"2023-07-19T12:24:11.5299601+00:00\",\n  \"items\": [\n    {\n      \"idItem\": \"2434\",\n      \"quantidadeItem\": 1,\n      \"valorItem\": 1000\n    }\n  ]\n}"
+            },
+            "url": {
+              "raw": "http://localhost:3000/order",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "order"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Listar Pedidos",
+          "id": "9b016dac-d6f0-46b8-aa2f-e2f1045d934e",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/order/list",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "order",
+                "list"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Procurar Pedido por ID",
+          "id": "2ffd4c60-66d3-47da-a023-7f945eade39b",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/order/v10089015vdb-01",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "order",
+                "v10089015vdb-01"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Atualizar Pedido",
+          "id": "399ec6cd-e0a2-47d2-a445-ffb0d672f6d4",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"valorTotal\": 15000\n}"
+            },
+            "url": {
+              "raw": "http://localhost:3000/order/v10089015vdb-01",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "order",
+                "v10089015vdb-01"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Deletar Pedido",
+          "id": "a2f9738b-712d-4baf-ad39-6dad3202f780",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/order/v10089015vdb-01",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "order",
+                "v10089015vdb-01"
+              ]
+            }
+          },
+          "response": []
+        }
+      ],
+      "id": "d7f241d8-ba94-4cbd-9693-f1f378f1e53e"
+    }
+  ]
+}
