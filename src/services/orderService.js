@@ -1,27 +1,17 @@
-const db = require("../database/db");
+const OrderRepository = require("../repositories/OrderRepository");
 
-module.exports = {
-  async createOrder(data) {
-    const { numero, valor, dataCriacao } = data;
-
-    await db("Order").insert({
-      numero,
-      valor,
-      dataCriacao,
-    });
-
-    return { message: "Pedido criado com sucesso" };
-  },
-
-  async getOrders() {
-    return db("Order").select("*");
-  },
-
-  async getOrderByNumber(numero) {
-    return db("Order").where({ numero }).first();
-  },
-
-  async deleteOrder(numero) {
-    return db("Order").where({ numero }).del();
+class OrderService {
+  constructor() {
+    this.repo = new OrderRepository();
   }
-};
+
+  async create(order) {
+    return await this.repo.create(order);
+  }
+
+  async list() {
+    return await this.repo.list();
+  }
+}
+
+module.exports = OrderService;

@@ -2,18 +2,19 @@ const db = require("../database/db");
 
 module.exports = {
   async createItem(data) {
-    const { valor, quantidade, numero } = data;
+    const { orderId, productId, quantity, price } = data;
 
     await db("Items").insert({
-      valor,
-      quantidade,
-      numero
+      orderId,
+      productId,
+      quantity,
+      price
     });
 
     return { message: "Item criado com sucesso" };
   },
 
-  async getItemsByOrder(numero) {
-    return db("Items").where({ numero });
+  async getItemsByOrder(orderId) {
+    return db("Items").where({ orderId });
   },
 };
