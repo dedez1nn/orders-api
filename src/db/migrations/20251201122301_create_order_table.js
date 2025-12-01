@@ -2,16 +2,16 @@
  * @param { import("knex").Knex } knex
  * @returns { Promise<void> }
  */
-exports.up = function(knex) {
+exports.up = function (knex) {
   return knex.schema
 
-    .createTable("Order", (table) => {
+    .createTable("orders", (table) => {
       table.string("orderId").primary();
       table.integer("value").notNullable();
       table.timestamp("creationDate").notNullable();
     })
 
-    .createTable("Items", (table) => {
+    .createTable("items", (table) => {
       table.increments("id").primary();
 
       table.string("orderId").notNullable();
@@ -22,7 +22,7 @@ exports.up = function(knex) {
       table
         .foreign("orderId")
         .references("orderId")
-        .inTable("Order")
+        .inTable("orders")
         .onDelete("CASCADE");
     });
 };
@@ -31,7 +31,7 @@ exports.up = function(knex) {
  * @param { import("knex").Knex } knex
  * @returns { Promise<void> }
  */
-exports.down = function(knex) {
+exports.down = function (knex) {
   return knex.schema
     .dropTableIfExists("Items")
     .dropTableIfExists("Order");
