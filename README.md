@@ -1,4 +1,4 @@
-# Orders API
+# API de Pedidos 
 
 API para gerenciamento de pedidos com autenticação JWT, desenvolvida em Node.js com Express e PostgreSQL (Knex).
 
